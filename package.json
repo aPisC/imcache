@@ -1,6 +1,6 @@
 {
   "name": "@apisc/imcache",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "In memory cache handler class",
   "main": "build/index.js",
   "scripts": {
