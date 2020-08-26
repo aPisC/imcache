@@ -1,0 +1,23 @@
+{
+  "name": "imcache",
+  "version": "1.0.0",
+  "description": "In memory cache handler class",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aPisC/imcache.git"
+  },
+  "keywords": [
+    "cache",
+    "in-memory"
+  ],
+  "author": "Bendegúz Cseresnyés",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aPisC/imcache/issues"
+  },
+  "homepage": "https://github.com/aPisC/imcache#readme"
+}
