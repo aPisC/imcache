@@ -3,12 +3,12 @@ export default class Imcache {
     loader,
     checkTime = 3000,
     removeTime = 10000,
-    useditemMode = "remove"
+    keepUsedItems = true
   ) {
     this.loader = loader;
     this.checkTime = checkTime;
     this.removeTime = removeTime;
-    this.useditemMode = useditemMode;
+    this.keepUsedItems = keepUsedItems;
     this.getId = (id) => id;
 
     let timeout = null;
@@ -36,7 +36,7 @@ export default class Imcache {
           } else if (timestampStore[item.id] === item.t) {
             // remove or update item if not changed since loading
             if (
-              this.useditemMode === "keep" &&
+              this.keepUsedItems &&
               lastuseStore[item.id] !== timestampStore[item.id]
             ) {
               // item was used since loading, keep it in memory
@@ -44,12 +44,18 @@ export default class Imcache {
               lastuseStore[item.id] = t;
               if (!timerangeStore[r]) timerangeStore[r] = [];
               timerangeStore[r].push({ id: item.id, t: t });
-            } else {
+            } else if (
+              !valueStore[item.id] ||
+              typeof valueStore[item.id] !== "object" ||
+              !valueStore[item.id].__imcache_keep
+            ) {
               // delete old item
               delete timestampStore[item.id];
               delete valueStore[item.id];
               delete lastuseStore[item.id];
               itemCount--;
+            } else {
+              isRemoveable = false;
             }
           }
         });
