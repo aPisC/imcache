@@ -1,6 +1,6 @@
 {
   "name": "@apisc/imcache",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "In memory cache handler class",
   "main": "build/index.js",
   "scripts": {
@@ -23,11 +23,12 @@
   },
   "homepage": "https://github.com/aPisC/imcache#readme",
   "devDependencies": {
-    "@babel/preset-es2015": "^7.0.0-beta.53",
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.4",
+    "@babel/preset-env": "^7.11.0",
     "babel-cli": "^6.26.0",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-es2015": "^6.24.1",
     "eslint": "^7.7.0"
   }
 }
