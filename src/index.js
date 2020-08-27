@@ -102,6 +102,10 @@ export default class Imcache {
       return data;
     }
 
+    async function getAll(ids) {
+      return await Promise.all(ids.map((id) => this.get(id)));
+    }
+
     function remove(id) {
       const _id = this.getId(id);
       delete valueStore[_id];
@@ -124,5 +128,6 @@ export default class Imcache {
     this.get = get;
     this.remove = remove;
     this.clear = clear;
+    this.getAll = getAll;
   }
 }
