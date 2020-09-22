@@ -83,6 +83,13 @@ export default class Imcache {
 
       // load data
       const data = await this.loader(id);
+
+      // Return item if it was loaded while the promie was pending
+      if (valueStore[_id] !== undefined) {
+        lastuseStore[_id] = +new Date();
+        return valueStore[_id];
+      }
+
       const t = +new Date();
       const r = Math.floor(t / this.removeTime);
 
