@@ -78,17 +78,11 @@ export default class Imcache {
       // return item if available
       if (valueStore[_id] !== undefined) {
         lastuseStore[_id] = +new Date();
-        return valueStore[_id];
+        return await valueStore[_id];
       }
 
       // load data
-      const data = await this.loader(id);
-
-      // Return item if it was loaded while the promie was pending
-      if (valueStore[_id] !== undefined) {
-        lastuseStore[_id] = +new Date();
-        return valueStore[_id];
-      }
+      const data = this.loader(id);
 
       const t = +new Date();
       const r = Math.floor(t / this.removeTime);
@@ -99,6 +93,8 @@ export default class Imcache {
       timestampStore[_id] = t;
       lastuseStore[_id] = t;
 
+      valueStore[_id] = await data;
+
       if (!timerangeStore[r]) timerangeStore[r] = [];
       timerangeStore[r].push({ id: _id, t: t });
 
@@ -106,7 +102,7 @@ export default class Imcache {
       if (timeout == null) {
         timeout = setTimeout(clearCache.bind(this), this.checkTime);
       }
-      return data;
+      return valueStore[_id];
     }
 
     async function getAll(ids) {
