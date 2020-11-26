@@ -10,6 +10,7 @@ export default class Imcache {
     this.removeTime = removeTime;
     this.keepUsedItems = keepUsedItems;
     this.getId = (id) => id;
+    this.onRemove = null;
 
     let timeout = null;
     let itemCount = 0;
@@ -50,6 +51,8 @@ export default class Imcache {
               !valueStore[item.id].__imcache_keep
             ) {
               // delete old item
+              if (this.onRemove) this.onRemove(valueStore[item.id]);
+
               delete timestampStore[item.id];
               delete valueStore[item.id];
               delete lastuseStore[item.id];
@@ -111,6 +114,9 @@ export default class Imcache {
 
     function remove(id) {
       const _id = this.getId(id);
+
+      if (this.onRemove) this.onRemove(valueStore[_id]);
+
       delete valueStore[_id];
       delete lastuseStore[_id];
       delete timestampStore[_id];
